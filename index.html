@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SIST Soluções Tecnológicas</title>
+  <meta name="description" content="SIST — Sistema Integrado de Soluções Tecnológicas. Software, consultoria e capacitação para a administração pública, com foco em RPPS, controle interno e prestação de contas. Conheça o SICI.">
+  <meta property="og:title" content="SIST Soluções Tecnológicas">
+  <meta property="og:description" content="Software, consultoria e capacitação para a gestão pública. Conheça o SICI — Sistema Integrado de Controle Interno.">
+  <meta property="og:image" content="https://www.sistsolucoes.com.br/og-image.png">
+  <meta property="og:url" content="https://www.sistsolucoes.com.br/">
+  <link rel="canonical" href="https://www.sistsolucoes.com.br/">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="logo-simbolo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --azul-900: #002070;
+      --azul-800: #003080;
+      --azul-700: #0040a0;
+      --azul-600: #0050b0;
+      --azul-500: #0070c0;
+      --azul-100: #dbe7f7;
+      --azul-50:  #eef4fc;
+      --grafite:  #303a40;
+      --grafite-2:#4a5560;
+      --ouro:     #e8a317;
+      --ouro-2:   #f4c25a;
+      --fundo:    #ffffff;
+      --fundo-2:  #f5f7fa;
+      --texto:    #1f272e;
+      --texto-2:  #55616b;
+      --linha:    #e3e8ee;
+      --sombra:   0 10px 30px rgba(0, 48, 128, .10);
+      --raio:     14px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      color: var(--texto);
+      background: var(--fundo);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--azul-700); text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    h1, h2, h3, h4 { line-height: 1.2; margin: 0 0 .5em; color: var(--grafite); letter-spacing: -.01em; }
+    h1 { font-size: clamp(2rem, 4.6vw, 3.4rem); font-weight: 800; }
+    h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 800; }
+    h3 { font-size: 1.15rem; font-weight: 700; }
+    p { margin: 0 0 1em; }
+    .container { width: min(1140px, 100% - 32px); margin-inline: auto; }
+    section { padding: 88px 0; }
+    .kicker {
+      display: inline-block; font-size: .78rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--azul-600); margin-bottom: 12px;
+    }
+    .kicker::before { content: ""; display: inline-block; width: 22px; height: 3px; background: var(--ouro); margin-right: 10px; vertical-align: middle; border-radius: 2px; }
+    .lead { font-size: 1.1rem; color: var(--texto-2); max-width: 720px; }
+
+    /* Botões */
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; border-radius: 10px;
+      font-weight: 700; font-size: .98rem; border: 2px solid transparent; cursor: pointer;
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+      white-space: nowrap;
+    }
+    .btn svg { width: 18px; height: 18px; flex: none; }
+    .btn-primario { background: linear-gradient(135deg, var(--azul-700), var(--azul-500)); color: #fff; box-shadow: 0 8px 20px rgba(0, 80, 176, .30); }
+    .btn-primario:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(0, 80, 176, .38); }
+    .btn-contorno { background: transparent; color: var(--azul-800); border-color: var(--azul-100); }
+    .btn-contorno:hover { background: var(--azul-50); border-color: var(--azul-600); }
+    .btn-ouro { background: var(--ouro); color: #1f1a0a; }
+    .btn-ouro:hover { background: var(--ouro-2); transform: translateY(-2px); }
+    .btn-branco { background: #fff; color: var(--azul-800); }
+    .btn-branco:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,.18); }
+
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.92);
+      backdrop-filter: blur(10px); border-bottom: 1px solid var(--linha);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 76px; gap: 24px; }
+    .marca img { height: 54px; width: auto; }
+    .menu { display: flex; align-items: center; gap: 28px; list-style: none; margin: 0; padding: 0; }
+    .menu a { font-weight: 600; color: var(--grafite-2); font-size: .95rem; }
+    .menu a:hover { color: var(--azul-700); }
+    .nav .btn { padding: 11px 18px; font-size: .9rem; }
+    .hamb { display: none; background: none; border: 0; padding: 8px; cursor: pointer; }
+    .hamb span { display: block; width: 24px; height: 3px; background: var(--grafite); margin: 5px 0; border-radius: 2px; }
+
+    /* Hero */
+    .hero {
+      position: relative; overflow: hidden; padding: 96px 0 104px;
+      background:
+        radial-gradient(900px 500px at 85% 10%, rgba(0,112,192,.16), transparent 60%),
+        radial-gradient(600px 400px at 10% 90%, rgba(232,163,23,.12), transparent 60%),
+        linear-gradient(180deg, #f7f9fc 0%, #ffffff 100%);
+    }
+    .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 56px; align-items: center; }
+    .hero h1 span { color: var(--azul-700); }
+    .hero .acoes { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
+    .hero .selo { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 36px; }
+    .selo span {
+      font-size: .8rem; font-weight: 600; color: var(--grafite-2); background: #fff;
+      border: 1px solid var(--linha); padding: 7px 12px; border-radius: 999px;
+    }
+    .hero-logo { display: flex; justify-content: center; }
+    .hero-logo img { width: min(100%, 420px); filter: drop-shadow(0 20px 40px rgba(0,48,128,.18)); }
+
+    /* Faixa do SICI */
+    .sici {
+      background: linear-gradient(135deg, var(--azul-900) 0%, var(--azul-700) 55%, var(--azul-500) 100%);
+      color: #fff; position: relative; overflow: hidden;
+    }
+    .sici::after {
+      content: ""; position: absolute; right: -120px; top: -120px; width: 420px; height: 420px;
+      border: 40px solid rgba(255,255,255,.06); border-radius: 50%;
+    }
+    .sici .kicker { color: var(--ouro-2); }
+    .sici h2, .sici h3 { color: #fff; }
+    .sici .lead { color: rgba(255,255,255,.85); }
+    .sici-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; position: relative; z-index: 1; }
+    .sici-card {
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18);
+      border-radius: var(--raio); padding: 28px; backdrop-filter: blur(6px);
+    }
+    .sici-card ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+    .sici-card li { display: flex; gap: 12px; align-items: flex-start; font-size: .95rem; }
+    .sici-card li::before {
+      content: "✓"; flex: none; width: 22px; height: 22px; border-radius: 6px; background: var(--ouro);
+      color: #1f1a0a; font-weight: 800; font-size: .8rem; display: grid; place-items: center; margin-top: 2px;
+    }
+    .numeros { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 28px 0 8px; }
+    .numeros div { background: rgba(255,255,255,.10); border-radius: 12px; padding: 16px; text-align: center; }
+    .numeros b { display: block; font-size: 1.8rem; font-weight: 800; color: var(--ouro-2); }
+    .numeros small { font-size: .8rem; color: rgba(255,255,255,.8); }
+
+    /* Cards de serviços */
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 40px; }
+    .card {
+      background: #fff; border: 1px solid var(--linha); border-radius: var(--raio); padding: 28px;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: var(--sombra); border-color: var(--azul-100); }
+    .icone {
+      width: 52px; height: 52px; border-radius: 12px; display: grid; place-items: center; margin-bottom: 18px;
+      background: linear-gradient(135deg, var(--azul-50), var(--azul-100)); color: var(--azul-700);
+    }
+    .icone svg { width: 26px; height: 26px; }
+    .card p { color: var(--texto-2); font-size: .95rem; margin: 0; }
+    .card ul { margin: 12px 0 0; padding-left: 18px; color: var(--texto-2); font-size: .92rem; }
+    .card li { margin-bottom: 4px; }
+
+    /* Público */
+    .publico { background: var(--fundo-2); }
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .chips span {
+      background: #fff; border: 1px solid var(--linha); border-radius: 10px; padding: 12px 16px;
+      font-weight: 600; font-size: .92rem; color: var(--grafite);
+    }
+    .chips span::before { content: "●"; color: var(--ouro); font-size: .6rem; margin-right: 8px; vertical-align: middle; }
+
+    /* Sobre */
+    .sobre-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+    .sobre p { color: var(--texto-2); }
+    details {
+      border: 1px solid var(--linha); border-radius: 12px; padding: 0 20px; background: #fff; margin-top: 16px;
+    }
+    summary { cursor: pointer; font-weight: 700; padding: 16px 0; color: var(--azul-800); list-style: none; display: flex; justify-content: space-between; align-items: center; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; font-size: 1.4rem; color: var(--ouro); font-weight: 800; }
+    details[open] summary::after { content: "–"; }
+    .cnae { list-style: none; margin: 0; padding: 0 0 16px; display: grid; gap: 8px; }
+    .cnae li { display: grid; grid-template-columns: 96px 1fr; gap: 12px; font-size: .9rem; color: var(--texto-2); }
+    .cnae code { font-family: 'Inter', monospace; font-weight: 700; color: var(--azul-700); background: var(--azul-50); padding: 2px 8px; border-radius: 6px; font-size: .82rem; text-align: center; }
+    .valores { display: grid; gap: 14px; }
+    .valor { display: flex; gap: 14px; align-items: flex-start; padding: 16px; border-radius: 12px; background: var(--fundo-2); }
+    .valor b { display: block; margin-bottom: 2px; color: var(--grafite); }
+    .valor span { color: var(--texto-2); font-size: .92rem; }
+    .valor .n { flex: none; width: 36px; height: 36px; border-radius: 10px; background: var(--azul-800); color: #fff; display: grid; place-items: center; font-weight: 800; }
+
+    /* CTA final */
+    .cta { background: var(--grafite); color: #fff; text-align: center; padding: 72px 0; }
+    .cta h2 { color: #fff; }
+    .cta p { color: rgba(255,255,255,.78); max-width: 640px; margin-inline: auto; }
+    .cta .acoes { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; margin-top: 24px; }
+
+    /* Contato */
+    .contato-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px; }
+    .contato-item { border: 1px solid var(--linha); border-radius: var(--raio); padding: 24px; display: flex; gap: 16px; align-items: flex-start; }
+    .contato-item .icone { margin: 0; flex: none; }
+    .contato-item b { display: block; margin-bottom: 4px; }
+    .contato-item a { font-weight: 600; }
+
+    /* Rodapé */
+    footer { border-top: 1px solid var(--linha); padding: 36px 0; font-size: .88rem; color: var(--texto-2); }
+    .foot { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .foot img { height: 44px; }
+    .foot nav { display: flex; gap: 20px; flex-wrap: wrap; }
+    .foot nav a { color: var(--texto-2); font-weight: 500; }
+    .foot nav a:hover { color: var(--azul-700); }
+
+    /* Responsivo */
+    @media (max-width: 900px) {
+      section { padding: 64px 0; }
+      .hero { padding: 56px 0 64px; }
+      .hero-grid, .sici-grid, .sobre-grid, .contato-grid { grid-template-columns: 1fr; }
+      .hero-logo { order: -1; }
+      .hero-logo img { width: min(100%, 300px); }
+      .cards { grid-template-columns: 1fr; }
+      .menu { display: none; position: absolute; top: 76px; left: 0; right: 0; background: #fff; flex-direction: column; align-items: stretch; gap: 0; border-bottom: 1px solid var(--linha); box-shadow: var(--sombra); }
+      .menu.aberto { display: flex; }
+      .menu li a { display: block; padding: 14px 16px; border-top: 1px solid var(--linha); }
+      .hamb { display: block; }
+      .nav .btn { padding: 10px 14px; }
+      .nav .btn .txt-longo { display: none; }
+      .numeros { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+      .numeros b { font-size: 1.4rem; }
+    }
+    @media (max-width: 480px) {
+      .cnae li { grid-template-columns: 1fr; gap: 4px; }
+      .cnae code { width: max-content; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a class="marca" href="#inicio" aria-label="SIST — Início">
+      <img src="logo.png" alt="SIST — Sistema Integrado de Soluções Tecnológicas">
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#sici">SICI</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#publico">Para quem</a></li>
+      <li><a href="#sobre">A empresa</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:10px">
+      <a class="btn btn-primario" href="https://sici.sistsolucoes.com.br" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></svg>
+        <span><span class="txt-longo">Acessar o </span>SICI</span>
+      </a>
+      <button class="hamb" id="hamb" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="container hero-grid">
+      <div>
+        <span class="kicker">Tecnologia e gestão para o setor público</span>
+        <h1>Sistemas, consultoria e capacitação para uma <span>gestão pública</span> mais segura e transparente.</h1>
+        <p class="lead">A SIST desenvolve softwares e presta consultoria especializada para órgãos e entidades da administração pública, com foco em Regimes Próprios de Previdência Social (RPPS), controle interno e prestação de contas.</p>
+        <div class="acoes">
+          <a class="btn btn-primario" href="https://sici.sistsolucoes.com.br" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            Acessar o SICI
+          </a>
+          <a class="btn btn-contorno" href="#contato">Fale com a SIST</a>
+        </div>
+        <div class="selo">
+          <span>Software como Serviço (SaaS)</span>
+          <span>Consultoria em RPPS</span>
+          <span>Controle interno</span>
+          <span>Capacitação de gestores</span>
+        </div>
+      </div>
+      <div class="hero-logo">
+        <img src="logo.png" alt="Logotipo SIST">
+      </div>
+    </div>
+  </section>
+
+  <!-- SICI -->
+  <section class="sici" id="sici">
+    <div class="container sici-grid">
+      <div>
+        <span class="kicker">Nosso produto</span>
+        <h2>SICI — Sistema Integrado de Controle Interno</h2>
+        <p class="lead">Plataforma online para a gestão de Regimes Próprios de Previdência Social. Reúne em um só lugar os dados mensais, as contribuições, a contabilidade, a conformidade e a governança do instituto — com verificações automáticas que apontam pendências antes que virem problema.</p>
+        <div class="numeros">
+          <div><b>50+</b><small>módulos</small></div>
+          <div><b>100</b><small>riscos catalogados</small></div>
+          <div><b>24</b><small>ações do Pró-Gestão</small></div>
+        </div>
+        <div class="acoes" style="margin-top:24px">
+          <a class="btn btn-ouro" href="https://sici.sistsolucoes.com.br" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></svg>
+            Entrar no SICI
+          </a>
+        </div>
+      </div>
+      <div class="sici-card">
+        <h3>O que o SICI faz</h3>
+        <ul>
+          <li>Controle de contribuições previdenciárias, parcelamentos e auditoria por competência</li>
+          <li>Contabilidade e conferência de balancetes, com importação do sistema contábil</li>
+          <li>Conformidade: CRP, CADPREV, prazos do Tribunal de Contas e Pró-Gestão</li>
+          <li>Prestação de Contas Anual (PCA) e Relatório Semestral de Controle Interno</li>
+          <li>Matriz de riscos, painel de compliance e mesa de auditoria de evidências</li>
+          <li>Conselhos, comitê de investimentos, ouvidoria e numeração documental</li>
+          <li>Painel executivo com indicadores e alertas de pendências</li>
+          <li>Multi-instituto, com perfis e permissões por módulo</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section id="servicos">
+    <div class="container">
+      <span class="kicker">O que fazemos</span>
+      <h2>Soluções completas, do software à capacitação</h2>
+      <p class="lead">Atuamos em todo o ciclo: desenvolvemos e hospedamos a tecnologia, orientamos a gestão e preparamos as equipes que vão usá-la.</p>
+
+      <div class="cards">
+        <article class="card">
+          <div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg></div>
+          <h3>Desenvolvimento e licenciamento de software</h3>
+          <p>Sistemas, softwares e plataformas digitais sob encomenda ou prontos, inclusive no modelo SaaS.</p>
+          <ul>
+            <li>Implantação e customização</li>
+            <li>Manutenção e suporte</li>
+            <li>Cessão de direito de uso</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="8" rx="2"/><rect x="2" y="13" width="20" height="8" rx="2"/><path d="M6 7h.01M6 17h.01"/></svg></div>
+          <h3>Serviços de tecnologia da informação</h3>
+          <p>Infraestrutura e integração para que os sistemas funcionem com segurança e disponibilidade.</p>
+          <ul>
+            <li>Integração de sistemas</li>
+            <li>Hospedagem e processamento de dados</li>
+            <li>Consultoria em TI</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 15 4-4 4 4 5-6"/></svg></div>
+          <h3>Consultoria e assessoria em gestão</h3>
+          <p>Apoio técnico nas áreas tributária, financeira, orçamentária, patrimonial, previdenciária e administrativa.</p>
+          <ul>
+            <li>Gestão previdenciária de RPPS</li>
+            <li>Apoio ao controle interno</li>
+            <li>Prestação de contas e certificação institucional</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+          <h3>Treinamento e capacitação</h3>
+          <p>Formação e aperfeiçoamento de gestores, servidores, empregados públicos e conselheiros.</p>
+          <ul>
+            <li>Presencial ou a distância</li>
+            <li>Conteúdo aplicado à rotina do órgão</li>
+            <li>Foco em governança e conformidade</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+          <h3>Gestão de projetos</h3>
+          <p>Intermediação, coordenação, execução e gestão de projetos nas áreas em que atuamos.</p>
+          <ul>
+            <li>Planejamento e acompanhamento</li>
+            <li>Entregas com prazos e metas</li>
+            <li>Integração entre equipes e fornecedores</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg></div>
+          <h3>Controle interno e conformidade</h3>
+          <p>Estruturação de rotinas de controle, evidências e acompanhamento de prazos perante os órgãos de controle.</p>
+          <ul>
+            <li>CRP, CADPREV e Tribunais de Contas</li>
+            <li>Pró-Gestão RPPS</li>
+            <li>Gestão de riscos e compliance</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARA QUEM -->
+  <section class="publico" id="publico">
+    <div class="container">
+      <span class="kicker">Para quem</span>
+      <h2>Atendemos a administração pública nas três esferas</h2>
+      <p class="lead">Prestamos serviços a pessoas físicas e jurídicas de direito público ou privado, incluindo a União, os Estados, o Distrito Federal e os Municípios, bem como os órgãos e entidades da administração direta e indireta.</p>
+      <div class="chips">
+        <span>Institutos e fundos de previdência (RPPS)</span>
+        <span>Prefeituras e Câmaras Municipais</span>
+        <span>Governos estaduais e do DF</span>
+        <span>Autarquias</span>
+        <span>Fundações públicas</span>
+        <span>Empresas públicas</span>
+        <span>Sociedades de economia mista</span>
+        <span>Consórcios públicos</span>
+        <span>Fundos e institutos</span>
+        <span>Empresas e pessoas físicas</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section class="sobre" id="sobre">
+    <div class="container sobre-grid">
+      <div>
+        <span class="kicker">A empresa</span>
+        <h2>SIST — Sistema Integrado de Soluções Tecnológicas</h2>
+        <p>A SIST tem por objeto o desenvolvimento, licenciamento, cessão de direito de uso, implantação, customização, manutenção e suporte de sistemas, softwares e plataformas digitais, inclusive na modalidade SaaS; a prestação de serviços de tecnologia da informação; a consultoria e assessoria em gestão pública, inclusive gestão previdenciária de RPPS, apoio ao controle interno, à prestação de contas e à certificação institucional; e o treinamento e a capacitação de gestores, servidores e conselheiros.</p>
+        <p>Todas as atividades observam as atribuições privativas de profissionais legalmente habilitados e as exigências da legislação aplicável.</p>
+
+        <details>
+          <summary>Atividades econômicas (CNAE)</summary>
+          <ul class="cnae">
+            <li><code>6202-3/00</code><span>Desenvolvimento e licenciamento de programas de computador customizáveis</span></li>
+            <li><code>6203-1/00</code><span>Desenvolvimento e licenciamento de programas de computador não customizáveis</span></li>
+            <li><code>6201-5/01</code><span>Desenvolvimento de programas de computador sob encomenda</span></li>
+            <li><code>6204-0/00</code><span>Consultoria em tecnologia da informação</span></li>
+            <li><code>6209-1/00</code><span>Suporte técnico, manutenção e outros serviços em tecnologia da informação</span></li>
+            <li><code>6311-9/00</code><span>Tratamento de dados, provedores de serviços de aplicação e serviços de hospedagem na internet</span></li>
+            <li><code>7020-4/00</code><span>Atividades de consultoria em gestão empresarial, exceto consultoria técnica específica</span></li>
+            <li><code>8599-6/04</code><span>Treinamento em desenvolvimento profissional e gerencial</span></li>
+          </ul>
+        </details>
+      </div>
+
+      <div class="valores">
+        <div class="valor"><div class="n">1</div><div><b>Especialização em RPPS</b><span>Conhecemos a rotina dos institutos de previdência: CRP, CADPREV, DAIR, DIPR, Pró-Gestão, prestação de contas e Tribunais de Contas.</span></div></div>
+        <div class="valor"><div class="n">2</div><div><b>Tecnologia própria</b><span>Desenvolvemos e hospedamos o SICI, com evolução contínua a partir da necessidade real de quem usa.</span></div></div>
+        <div class="valor"><div class="n">3</div><div><b>Do dado à decisão</b><span>Indicadores, alertas e verificações automáticas transformam informação dispersa em ação para o gestor.</span></div></div>
+        <div class="valor"><div class="n">4</div><div><b>Equipe preparada</b><span>Capacitação de gestores, servidores e conselheiros para que a tecnologia gere resultado.</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container">
+      <h2>Pronto para conhecer o SICI?</h2>
+      <p>Acesse a plataforma ou entre em contato para uma apresentação ao seu instituto ou órgão.</p>
+      <div class="acoes">
+        <a class="btn btn-branco" href="https://sici.sistsolucoes.com.br" target="_blank" rel="noopener">Acessar o SICI</a>
+        <a class="btn btn-ouro" href="#contato">Solicitar apresentação</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section id="contato">
+    <div class="container">
+      <span class="kicker">Contato</span>
+      <h2>Fale com a SIST</h2>
+      <p class="lead">Envie sua mensagem e retornaremos com uma proposta ou apresentação adequada à realidade do seu órgão.</p>
+      <div class="contato-grid">
+        <div class="contato-item">
+          <div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></div>
+          <div>
+            <b>E-mail</b>
+            <a href="mailto:contato@sistsolucoes.com.br">contato@sistsolucoes.com.br</a>
+          </div>
+        </div>
+        <div class="contato-item">
+          <div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></svg></div>
+          <div>
+            <b>Plataforma SICI</b>
+            <a href="https://sici.sistsolucoes.com.br" target="_blank" rel="noopener">sici.sistsolucoes.com.br</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container foot">
+    <img src="logo.png" alt="SIST">
+    <nav>
+      <a href="#sici">SICI</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#sobre">A empresa</a>
+      <a href="#contato">Contato</a>
+      <a href="https://sici.sistsolucoes.com.br" target="_blank" rel="noopener">Acessar o SICI</a>
+    </nav>
+    <div>© <span id="ano"></span> SIST — Sistema Integrado de Soluções Tecnológicas</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('ano').textContent = new Date().getFullYear();
+  var hamb = document.getElementById('hamb'), menu = document.getElementById('menu');
+  hamb.addEventListener('click', function () {
+    var aberto = menu.classList.toggle('aberto');
+    hamb.setAttribute('aria-expanded', aberto);
+  });
+  menu.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () { menu.classList.remove('aberto'); hamb.setAttribute('aria-expanded', false); });
+  });
+</script>
+</body>
+</html>
