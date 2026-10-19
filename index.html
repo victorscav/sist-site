@@ -11,6 +11,7 @@
   <meta property="og:url" content="https://www.sistsolucoes.com.br/">
   <link rel="canonical" href="https://www.sistsolucoes.com.br/">
   <meta property="og:type" content="website">
+  <meta name="color-scheme" content="light dark">
   <link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=2">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=2">
@@ -18,6 +19,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    // Modo claro/escuro: o mesmo dos sistemas ("sici-modo": claro | escuro | auto).
+    (function () {
+      var m = "auto";
+      try { m = localStorage.getItem("sici-modo") || "auto"; } catch (e) {}
+      var escuro = m === "escuro" || (m === "auto" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+      document.documentElement.dataset.theme = escuro ? "dark" : "light";
+    })();
+  </script>
   <style>
     :root {
       --azul-900: #002070;
@@ -33,11 +43,31 @@
       --ouro-2:   #f4c25a;
       --fundo:    #ffffff;
       --fundo-2:  #f5f7fa;
+      --cartao:   #ffffff;
+      --topo:     rgba(255,255,255,.92);
+      --titulo:   #303a40;
       --texto:    #1f272e;
       --texto-2:  #55616b;
       --linha:    #e3e8ee;
+      --link:     #0040a0;
       --sombra:   0 10px 30px rgba(0, 48, 128, .10);
       --raio:     14px;
+      --heroi:    linear-gradient(180deg, #f7f9fc 0%, #ffffff 100%);
+    }
+    html[data-theme="dark"] {
+      --fundo:    #0f1318;
+      --fundo-2:  #141a21;
+      --cartao:   #181e26;
+      --topo:     rgba(15,19,24,.9);
+      --titulo:   #eef1f5;
+      --texto:    #e2e6eb;
+      --texto-2:  #9aa5b1;
+      --linha:    #29313b;
+      --link:     #6fb2ff;
+      --azul-50:  #16243a;
+      --azul-100: #22406a;
+      --sombra:   0 12px 30px rgba(0, 0, 0, .35);
+      --heroi:    linear-gradient(180deg, #111821 0%, #0f1318 100%);
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -49,9 +79,9 @@
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
-    a { color: var(--azul-700); text-decoration: none; }
+    a { color: var(--link); text-decoration: none; }
     img { max-width: 100%; display: block; }
-    h1, h2, h3, h4 { line-height: 1.2; margin: 0 0 .5em; color: var(--grafite); letter-spacing: -.01em; }
+    h1, h2, h3, h4 { line-height: 1.2; margin: 0 0 .5em; color: var(--titulo); letter-spacing: -.01em; }
     h1 { font-size: clamp(2rem, 4.6vw, 3.4rem); font-weight: 800; }
     h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 800; }
     h3 { font-size: 1.15rem; font-weight: 700; }
@@ -62,20 +92,23 @@
       display: inline-block; font-size: .78rem; font-weight: 700; letter-spacing: .12em;
       text-transform: uppercase; color: var(--azul-600); margin-bottom: 12px;
     }
+    html[data-theme="dark"] .kicker { color: #6fb2ff; }
     .kicker::before { content: ""; display: inline-block; width: 22px; height: 3px; background: var(--ouro); margin-right: 10px; vertical-align: middle; border-radius: 2px; }
     .lead { font-size: 1.1rem; color: var(--texto-2); max-width: 720px; }
+    .centro { text-align: center; }
+    .centro .lead { margin-inline: auto; }
 
     /* Botões */
     .btn {
       display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; border-radius: 10px;
       font-weight: 700; font-size: .98rem; border: 2px solid transparent; cursor: pointer;
       transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
-      white-space: nowrap;
+      white-space: nowrap; font-family: inherit;
     }
     .btn svg { width: 18px; height: 18px; flex: none; }
     .btn-primario { background: linear-gradient(135deg, var(--azul-700), var(--azul-500)); color: #fff; box-shadow: 0 8px 20px rgba(0, 80, 176, .30); }
     .btn-primario:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(0, 80, 176, .38); }
-    .btn-contorno { background: transparent; color: var(--azul-800); border-color: var(--azul-100); }
+    .btn-contorno { background: transparent; color: var(--link); border-color: var(--azul-100); }
     .btn-contorno:hover { background: var(--azul-50); border-color: var(--azul-600); }
     .btn-ouro { background: var(--ouro); color: #1f1a0a; }
     .btn-ouro:hover { background: var(--ouro-2); transform: translateY(-2px); }
@@ -84,17 +117,23 @@
 
     /* Header */
     header {
-      position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.92);
+      position: sticky; top: 0; z-index: 50; background: var(--topo);
       backdrop-filter: blur(10px); border-bottom: 1px solid var(--linha);
     }
     .nav { display: flex; align-items: center; justify-content: space-between; height: 76px; gap: 24px; }
-    .marca img { height: 54px; width: auto; }
+    .marca { display: flex; align-items: center; gap: 10px; }
+    .marca img { height: 44px; width: 44px; }
+    .marca b { display: block; font-size: 1.3rem; font-weight: 800; letter-spacing: .04em; color: var(--azul-800); line-height: 1; }
+    html[data-theme="dark"] .marca b { color: #fff; }
+    .marca small { display: block; font-size: .68rem; color: var(--texto-2); margin-top: 3px; }
     .menu { display: flex; align-items: center; gap: 28px; list-style: none; margin: 0; padding: 0; }
-    .menu a { font-weight: 600; color: var(--grafite-2); font-size: .95rem; }
-    .menu a:hover { color: var(--azul-700); }
+    .menu a { font-weight: 600; color: var(--texto-2); font-size: .95rem; }
+    .menu a:hover { color: var(--link); }
     .nav .btn { padding: 11px 18px; font-size: .9rem; }
     .hamb { display: none; background: none; border: 0; padding: 8px; cursor: pointer; }
-    .hamb span { display: block; width: 24px; height: 3px; background: var(--grafite); margin: 5px 0; border-radius: 2px; }
+    .hamb span { display: block; width: 24px; height: 3px; background: var(--titulo); margin: 5px 0; border-radius: 2px; }
+    .modo { background: none; border: 1px solid var(--linha); border-radius: 10px; width: 42px; height: 42px; cursor: pointer; font-size: 1.05rem; color: var(--texto); }
+    .modo:hover { border-color: var(--azul-600); }
 
     /* Hero */
     .hero {
@@ -102,18 +141,43 @@
       background:
         radial-gradient(900px 500px at 85% 10%, rgba(0,112,192,.16), transparent 60%),
         radial-gradient(600px 400px at 10% 90%, rgba(232,163,23,.12), transparent 60%),
-        linear-gradient(180deg, #f7f9fc 0%, #ffffff 100%);
+        var(--heroi);
     }
     .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 56px; align-items: center; }
     .hero h1 span { color: var(--azul-700); }
+    html[data-theme="dark"] .hero h1 span { color: #6fb2ff; }
     .hero .acoes { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
     .hero .selo { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 36px; }
     .selo span {
-      font-size: .8rem; font-weight: 600; color: var(--grafite-2); background: #fff;
+      font-size: .8rem; font-weight: 600; color: var(--texto-2); background: var(--cartao);
       border: 1px solid var(--linha); padding: 7px 12px; border-radius: 999px;
     }
     .hero-logo { display: flex; justify-content: center; }
     .hero-logo img { width: min(100%, 420px); filter: drop-shadow(0 20px 40px rgba(0,48,128,.18)); }
+    /* no escuro, a marca fica numa placa clara para o "SIST" grafite não sumir */
+    html[data-theme="dark"] .hero-logo img { background: #f5f7fa; border-radius: 28px; padding: 28px; filter: none; box-shadow: 0 20px 50px rgba(0,0,0,.45); }
+
+    /* Sistemas (portal) */
+    .sistemas { background: var(--fundo-2); }
+    .grade-sistemas { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 300px)); justify-content: center; gap: 22px; margin-top: 40px; }
+    .sistema {
+      display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px;
+      background: var(--cartao); border: 1px solid var(--linha); border-radius: 18px; padding: 34px 24px 26px;
+      color: var(--texto); transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .sistema:hover { transform: translateY(-4px); box-shadow: var(--sombra); border-color: var(--cor); }
+    .sistema svg { width: 92px; height: 92px; margin-bottom: 14px; }
+    .sistema h3 { font-size: 1.5rem; font-weight: 800; margin: 0; color: var(--titulo); }
+    .sistema p { color: var(--texto-2); font-size: .92rem; margin: 0; }
+    .sistema .ir { margin-top: 16px; font-weight: 700; font-size: .92rem; color: var(--cor); }
+    .sistema-acoes { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 14px; }
+    .sistema-acoes a { font-size: .85rem; font-weight: 700; }
+
+    /* Conta SIST */
+    .conta-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 40px; }
+    .passo { background: var(--cartao); border: 1px solid var(--linha); border-radius: var(--raio); padding: 26px; }
+    .passo .n { width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg, var(--azul-700), var(--azul-500)); color: #fff; display: grid; place-items: center; font-weight: 800; margin-bottom: 14px; }
+    .passo p { color: var(--texto-2); font-size: .95rem; margin: 0; }
 
     /* Faixa do SICI */
     .sici {
@@ -146,13 +210,13 @@
     /* Cards de serviços */
     .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 40px; }
     .card {
-      background: #fff; border: 1px solid var(--linha); border-radius: var(--raio); padding: 28px;
+      background: var(--cartao); border: 1px solid var(--linha); border-radius: var(--raio); padding: 28px;
       transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
     }
     .card:hover { transform: translateY(-4px); box-shadow: var(--sombra); border-color: var(--azul-100); }
     .icone {
       width: 52px; height: 52px; border-radius: 12px; display: grid; place-items: center; margin-bottom: 18px;
-      background: linear-gradient(135deg, var(--azul-50), var(--azul-100)); color: var(--azul-700);
+      background: linear-gradient(135deg, var(--azul-50), var(--azul-100)); color: var(--link);
     }
     .icone svg { width: 26px; height: 26px; }
     .card p { color: var(--texto-2); font-size: .95rem; margin: 0; }
@@ -163,8 +227,8 @@
     .publico { background: var(--fundo-2); }
     .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
     .chips span {
-      background: #fff; border: 1px solid var(--linha); border-radius: 10px; padding: 12px 16px;
-      font-weight: 600; font-size: .92rem; color: var(--grafite);
+      background: var(--cartao); border: 1px solid var(--linha); border-radius: 10px; padding: 12px 16px;
+      font-weight: 600; font-size: .92rem; color: var(--titulo);
     }
     .chips span::before { content: "●"; color: var(--ouro); font-size: .6rem; margin-right: 8px; vertical-align: middle; }
 
@@ -172,41 +236,41 @@
     .sobre-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
     .sobre p { color: var(--texto-2); }
     details {
-      border: 1px solid var(--linha); border-radius: 12px; padding: 0 20px; background: #fff; margin-top: 16px;
+      border: 1px solid var(--linha); border-radius: 12px; padding: 0 20px; background: var(--cartao); margin-top: 16px;
     }
-    summary { cursor: pointer; font-weight: 700; padding: 16px 0; color: var(--azul-800); list-style: none; display: flex; justify-content: space-between; align-items: center; }
+    summary { cursor: pointer; font-weight: 700; padding: 16px 0; color: var(--link); list-style: none; display: flex; justify-content: space-between; align-items: center; }
     summary::-webkit-details-marker { display: none; }
     summary::after { content: "+"; font-size: 1.4rem; color: var(--ouro); font-weight: 800; }
     details[open] summary::after { content: "–"; }
     .cnae { list-style: none; margin: 0; padding: 0 0 16px; display: grid; gap: 8px; }
     .cnae li { display: grid; grid-template-columns: 96px 1fr; gap: 12px; font-size: .9rem; color: var(--texto-2); }
-    .cnae code { font-family: 'Inter', monospace; font-weight: 700; color: var(--azul-700); background: var(--azul-50); padding: 2px 8px; border-radius: 6px; font-size: .82rem; text-align: center; }
+    .cnae code { font-family: 'Inter', monospace; font-weight: 700; color: var(--link); background: var(--azul-50); padding: 2px 8px; border-radius: 6px; font-size: .82rem; text-align: center; }
     .valores { display: grid; gap: 14px; }
     .valor { display: flex; gap: 14px; align-items: flex-start; padding: 16px; border-radius: 12px; background: var(--fundo-2); }
-    .valor b { display: block; margin-bottom: 2px; color: var(--grafite); }
+    .valor b { display: block; margin-bottom: 2px; color: var(--titulo); }
     .valor span { color: var(--texto-2); font-size: .92rem; }
     .valor .n { flex: none; width: 36px; height: 36px; border-radius: 10px; background: var(--azul-800); color: #fff; display: grid; place-items: center; font-weight: 800; }
 
     /* CTA final */
-    .cta { background: var(--grafite); color: #fff; text-align: center; padding: 72px 0; }
+    .cta { background: #303a40; color: #fff; text-align: center; padding: 72px 0; }
+    html[data-theme="dark"] .cta { background: #0b2a5c; }
     .cta h2 { color: #fff; }
     .cta p { color: rgba(255,255,255,.78); max-width: 640px; margin-inline: auto; }
     .cta .acoes { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; margin-top: 24px; }
 
     /* Contato */
     .contato-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px; }
-    .contato-item { border: 1px solid var(--linha); border-radius: var(--raio); padding: 24px; display: flex; gap: 16px; align-items: flex-start; }
+    .contato-item { border: 1px solid var(--linha); border-radius: var(--raio); padding: 24px; display: flex; gap: 16px; align-items: flex-start; background: var(--cartao); }
     .contato-item .icone { margin: 0; flex: none; }
-    .contato-item b { display: block; margin-bottom: 4px; }
+    .contato-item b { display: block; margin-bottom: 4px; color: var(--titulo); }
     .contato-item a { font-weight: 600; }
 
     /* Rodapé */
     footer { border-top: 1px solid var(--linha); padding: 36px 0; font-size: .88rem; color: var(--texto-2); }
     .foot { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
-    .foot img { height: 44px; }
     .foot nav { display: flex; gap: 20px; flex-wrap: wrap; }
     .foot nav a { color: var(--texto-2); font-weight: 500; }
-    .foot nav a:hover { color: var(--azul-700); }
+    .foot nav a:hover { color: var(--link); }
 
     /* Responsivo */
     @media (max-width: 900px) {
@@ -215,19 +279,20 @@
       .hero-grid, .sici-grid, .sobre-grid, .contato-grid { grid-template-columns: 1fr; }
       .hero-logo { order: -1; }
       .hero-logo img { width: min(100%, 300px); }
-      .cards { grid-template-columns: 1fr; }
-      .menu { display: none; position: absolute; top: 76px; left: 0; right: 0; background: #fff; flex-direction: column; align-items: stretch; gap: 0; border-bottom: 1px solid var(--linha); box-shadow: var(--sombra); }
+      .cards, .conta-grid { grid-template-columns: 1fr; }
+      .menu { display: none; position: absolute; top: 76px; left: 0; right: 0; background: var(--fundo); flex-direction: column; align-items: stretch; gap: 0; border-bottom: 1px solid var(--linha); box-shadow: var(--sombra); }
       .menu.aberto { display: flex; }
       .menu li a { display: block; padding: 14px 16px; border-top: 1px solid var(--linha); }
       .hamb { display: block; }
       .nav .btn { padding: 10px 14px; }
-      .nav .btn .txt-longo { display: none; }
+      .nav .btn .txt-longo, .marca small { display: none; }
       .numeros { grid-template-columns: repeat(3, 1fr); gap: 8px; }
       .numeros b { font-size: 1.4rem; }
     }
     @media (max-width: 480px) {
       .cnae li { grid-template-columns: 1fr; gap: 4px; }
       .cnae code { width: max-content; }
+      .modo { display: none; }
     }
   </style>
 </head>
@@ -236,19 +301,21 @@
 <header>
   <div class="container nav">
     <a class="marca" href="#inicio" aria-label="SIST — Início">
-      <img src="logo.png" alt="SIST — Sistema Integrado de Soluções Tecnológicas">
+      <img src="logo-simbolo.png" alt="" width="44" height="44">
+      <span><b>SIST</b><small>Sistema Integrado de Soluções Tecnológicas</small></span>
     </a>
     <ul class="menu" id="menu">
-      <li><a href="#sici">SICI</a></li>
+      <li><a href="#sistemas">Sistemas</a></li>
       <li><a href="#servicos">Serviços</a></li>
       <li><a href="#publico">Para quem</a></li>
       <li><a href="#sobre">A empresa</a></li>
       <li><a href="#contato">Contato</a></li>
     </ul>
     <div style="display:flex;align-items:center;gap:10px">
-      <a class="btn btn-primario" href="https://sici.sistsolucoes.com.br" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></svg>
-        <span><span class="txt-longo">Acessar o </span>SICI</span>
+      <button class="modo" id="modo" type="button" title="Modo de aparência" aria-label="Modo de aparência">🖥️</button>
+      <a class="btn btn-primario" data-entrar href="https://conta.sistsolucoes.com.br/">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="m10 17 5-5-5-5"/><path d="M15 12H3"/></svg>
+        <span>Entrar<span class="txt-longo"> na conta SIST</span></span>
       </a>
       <button class="hamb" id="hamb" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
     </div>
@@ -265,11 +332,11 @@
         <h1>Sistemas, consultoria e capacitação para uma <span>gestão pública</span> mais segura e transparente.</h1>
         <p class="lead">A SIST desenvolve softwares e presta consultoria especializada para órgãos e entidades da administração pública, com foco em Regimes Próprios de Previdência Social (RPPS), controle interno e prestação de contas.</p>
         <div class="acoes">
-          <a class="btn btn-primario" href="https://sici.sistsolucoes.com.br" target="_blank" rel="noopener">
+          <a class="btn btn-primario" data-entrar href="https://conta.sistsolucoes.com.br/">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-            Acessar o SICI
+            Entrar na conta SIST
           </a>
-          <a class="btn btn-contorno" href="#contato">Fale com a SIST</a>
+          <a class="btn btn-contorno" href="#sistemas">Conheça os sistemas</a>
         </div>
         <div class="selo">
           <span>Software como Serviço (SaaS)</span>
@@ -284,11 +351,51 @@
     </div>
   </section>
 
+  <!-- SISTEMAS -->
+  <section class="sistemas" id="sistemas">
+    <div class="container centro">
+      <span class="kicker">Portal de sistemas</span>
+      <h2>Cada sistema da SIST tem o seu S</h2>
+      <p class="lead">Com uma única conta SIST, você entra nos sistemas que o seu órgão contratou. Clique no sistema para acessar.</p>
+
+      <div class="grade-sistemas">
+        <a class="sistema" data-entrar href="https://conta.sistsolucoes.com.br/" style="--cor:#1590EA">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <defs>
+              <linearGradient id="s-sici" x1="9" y1="7" x2="50" y2="36" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#1590EA"/><stop offset="1" stop-color="#012E85"/></linearGradient>
+              <linearGradient id="s-base" x1="8" y1="24" x2="56" y2="60" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#4A535A"/><stop offset="1" stop-color="#2F363B"/></linearGradient>
+            </defs>
+            <path fill="url(#s-sici)" d="M21.5 4H61L52.5 17H25.5C22.5 17 20.8 18.8 20.8 21.5C20.8 23.3 21.3 24.6 22.4 26L33.2 39H17L9.6 30.4C7.8 28.3 7 26.3 7 24V21.5C7 15 14 4 21.5 4Z"/>
+            <path fill="url(#s-base)" d="M26.5 24.5H46C53 24.5 60 30.5 60 38.5V42C60 47.5 50 60 41 60H2.6L10.2 49.2C11 47.8 12.2 47 14 47H44C46.5 47 48 45.5 48 43V41C48 38.5 46.8 37 44.5 37H37.8Z"/>
+          </svg>
+          <h3>SICI</h3>
+          <p>Sistema Integrado de Controle Interno</p>
+          <span class="ir">Entrar →</span>
+        </a>
+      </div>
+      <div class="sistema-acoes"><a href="#sici">Saiba mais sobre o SICI ↓</a></div>
+    </div>
+  </section>
+
+  <!-- CONTA SIST -->
+  <section id="conta">
+    <div class="container">
+      <span class="kicker">Conta SIST</span>
+      <h2>Um acesso para todos os sistemas</h2>
+      <p class="lead">A conta SIST reúne em um só lugar o que a sua equipe usa no dia a dia, sem uma senha diferente para cada sistema.</p>
+      <div class="conta-grid">
+        <div class="passo"><div class="n">1</div><h3>Entre uma vez</h3><p>Faça login com a sua conta SIST e veja o painel com os sistemas contratados pelo seu órgão.</p></div>
+        <div class="passo"><div class="n">2</div><h3>Calendário único</h3><p>Prazos, obrigações e compromissos de todos os sistemas no mesmo calendário, com lembretes.</p></div>
+        <div class="passo"><div class="n">3</div><h3>Bate-papo da equipe</h3><p>Converse com a sua equipe no painel e dentro de cada sistema, sem trocar de ferramenta.</p></div>
+      </div>
+    </div>
+  </section>
+
   <!-- SICI -->
   <section class="sici" id="sici">
     <div class="container sici-grid">
       <div>
-        <span class="kicker">Nosso produto</span>
+        <span class="kicker">Nosso primeiro sistema</span>
         <h2>SICI — Sistema Integrado de Controle Interno</h2>
         <p class="lead">Plataforma online para a gestão de Regimes Próprios de Previdência Social. Reúne em um só lugar os dados mensais, as contribuições, a contabilidade, a conformidade e a governança do instituto — com verificações automáticas que apontam pendências antes que virem problema.</p>
         <div class="numeros">
@@ -297,8 +404,8 @@
           <div><b>24</b><small>ações do Pró-Gestão</small></div>
         </div>
         <div class="acoes" style="margin-top:24px">
-          <a class="btn btn-ouro" href="https://sici.sistsolucoes.com.br" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></svg>
+          <a class="btn btn-ouro" data-entrar href="https://conta.sistsolucoes.com.br/">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             Entrar no SICI
           </a>
         </div>
@@ -308,12 +415,12 @@
         <ul>
           <li>Controle de contribuições previdenciárias, parcelamentos e auditoria por competência</li>
           <li>Contabilidade e conferência de balancetes, com importação do sistema contábil</li>
+          <li>Remessas aos Tribunais de Contas: SIGFIS (TCE-RJ) e Aplic (TCE-MT)</li>
           <li>Conformidade: CRP, CADPREV, prazos do Tribunal de Contas e Pró-Gestão</li>
           <li>Prestação de Contas Anual (PCA) e Relatório Semestral de Controle Interno</li>
           <li>Matriz de riscos, painel de compliance e mesa de auditoria de evidências</li>
           <li>Conselhos, comitê de investimentos, ouvidoria e numeração documental</li>
           <li>Painel executivo com indicadores e alertas de pendências</li>
-          <li>Multi-instituto, com perfis e permissões por módulo</li>
         </ul>
       </div>
     </div>
@@ -443,7 +550,7 @@
 
       <div class="valores">
         <div class="valor"><div class="n">1</div><div><b>Especialização em RPPS</b><span>Conhecemos a rotina dos institutos de previdência: CRP, CADPREV, DAIR, DIPR, Pró-Gestão, prestação de contas e Tribunais de Contas.</span></div></div>
-        <div class="valor"><div class="n">2</div><div><b>Tecnologia própria</b><span>Desenvolvemos e hospedamos o SICI, com evolução contínua a partir da necessidade real de quem usa.</span></div></div>
+        <div class="valor"><div class="n">2</div><div><b>Tecnologia própria</b><span>Desenvolvemos e hospedamos os nossos sistemas, com evolução contínua a partir da necessidade real de quem usa.</span></div></div>
         <div class="valor"><div class="n">3</div><div><b>Do dado à decisão</b><span>Indicadores, alertas e verificações automáticas transformam informação dispersa em ação para o gestor.</span></div></div>
         <div class="valor"><div class="n">4</div><div><b>Equipe preparada</b><span>Capacitação de gestores, servidores e conselheiros para que a tecnologia gere resultado.</span></div></div>
       </div>
@@ -454,9 +561,9 @@
   <section class="cta">
     <div class="container">
       <h2>Pronto para conhecer o SICI?</h2>
-      <p>Acesse a plataforma ou entre em contato para uma apresentação ao seu instituto ou órgão.</p>
+      <p>Entre com a sua conta SIST ou fale com a gente para uma apresentação ao seu instituto ou órgão.</p>
       <div class="acoes">
-        <a class="btn btn-branco" href="https://sici.sistsolucoes.com.br" target="_blank" rel="noopener">Acessar o SICI</a>
+        <a class="btn btn-branco" data-entrar href="https://conta.sistsolucoes.com.br/">Entrar na conta SIST</a>
         <a class="btn btn-ouro" href="#contato">Solicitar apresentação</a>
       </div>
     </div>
@@ -477,10 +584,10 @@
           </div>
         </div>
         <div class="contato-item">
-          <div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></svg></div>
+          <div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="m10 17 5-5-5-5"/><path d="M15 12H3"/></svg></div>
           <div>
-            <b>Plataforma SICI</b>
-            <a href="https://sici.sistsolucoes.com.br" target="_blank" rel="noopener">sici.sistsolucoes.com.br</a>
+            <b>Conta SIST</b>
+            <a data-entrar href="https://conta.sistsolucoes.com.br/">conta.sistsolucoes.com.br</a>
           </div>
         </div>
       </div>
@@ -491,13 +598,16 @@
 
 <footer>
   <div class="container foot">
-    <img src="logo.png" alt="SIST">
+    <a class="marca" href="#inicio" aria-label="SIST — Início">
+      <img src="logo-simbolo.png" alt="" width="40" height="40">
+      <span><b>SIST</b><small>Sistema Integrado de Soluções Tecnológicas</small></span>
+    </a>
     <nav>
-      <a href="#sici">SICI</a>
+      <a href="#sistemas">Sistemas</a>
       <a href="#servicos">Serviços</a>
       <a href="#sobre">A empresa</a>
       <a href="#contato">Contato</a>
-      <a href="https://sici.sistsolucoes.com.br" target="_blank" rel="noopener">Acessar o SICI</a>
+      <a data-entrar href="https://conta.sistsolucoes.com.br/">Entrar</a>
     </nav>
     <div>© <span id="ano"></span> SIST — Sistema Integrado de Soluções Tecnológicas</div>
   </div>
@@ -513,6 +623,34 @@
   menu.querySelectorAll('a').forEach(function (a) {
     a.addEventListener('click', function () { menu.classList.remove('aberto'); hamb.setAttribute('aria-expanded', false); });
   });
+
+  // Endereço do login: ?entrar=<url> troca todos os botões (para testar antes de o domínio existir).
+  (function () {
+    var alvo = new URLSearchParams(location.search).get('entrar');
+    if (!alvo || !/^https:\/\/[a-z0-9.-]+\.(trycloudflare\.com|sistsolucoes\.com\.br)(\/|$)/i.test(alvo)) return;
+    document.querySelectorAll('[data-entrar]').forEach(function (a) { a.href = alvo.replace(/\/$/, '') + '/sist/'; });
+  })();
+
+  // Modo de aparência: automático → claro → escuro (mesma escolha dos sistemas).
+  (function () {
+    var botao = document.getElementById('modo'), raiz = document.documentElement;
+    var ordem = ['auto', 'claro', 'escuro'], icone = { auto: '🖥️', claro: '☀️', escuro: '🌙' };
+    var nome = { auto: 'automático', claro: 'claro', escuro: 'escuro' };
+    function modo() { try { return localStorage.getItem('sici-modo') || 'auto'; } catch (e) { return 'auto'; } }
+    function aplicar() {
+      var m = modo();
+      var escuro = m === 'escuro' || (m === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      raiz.dataset.theme = escuro ? 'dark' : 'light';
+      botao.textContent = icone[m];
+      botao.title = 'Modo de aparência: ' + nome[m];
+    }
+    botao.addEventListener('click', function () {
+      try { localStorage.setItem('sici-modo', ordem[(ordem.indexOf(modo()) + 1) % ordem.length]); } catch (e) {}
+      aplicar();
+    });
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', aplicar);
+    aplicar();
+  })();
 </script>
 </body>
 </html>
