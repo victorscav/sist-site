@@ -6,7 +6,7 @@
   <title>SIST Soluções Tecnológicas</title>
   <meta name="description" content="SIST — Sistema Integrado de Soluções Tecnológicas. Software, consultoria e capacitação para a administração pública, com foco em RPPS, controle interno e prestação de contas.">
   <meta property="og:title" content="SIST Soluções Tecnológicas">
-  <meta property="og:description" content="Software, consultoria e capacitação para a gestão pública. Conheça o SICI — Sistema Integrado de Controle Interno.">
+  <meta property="og:description" content="Software, consultoria e capacitação para a gestão pública. Conheça o SICI, o SIMAP e o SIFAB.">
   <meta property="og:image" content="https://www.sistsolucoes.com.br/og-image.png">
   <meta property="og:url" content="https://www.sistsolucoes.com.br/">
   <link rel="canonical" href="https://www.sistsolucoes.com.br/">
@@ -205,6 +205,26 @@
           </svg>
           <b>SICI</b>
         </button>
+        <button class="s-botao" type="button" role="tab" id="aba-simap" aria-controls="ficha-simap" aria-selected="false" style="--cor:#22C55E">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <defs>
+              <linearGradient id="s-simap" x1="9" y1="7" x2="50" y2="36" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#22C55E"/><stop offset="1" stop-color="#166534"/></linearGradient>
+            </defs>
+            <path fill="url(#s-simap)" d="M21.5 4H61L52.5 17H25.5C22.5 17 20.8 18.8 20.8 21.5C20.8 23.3 21.3 24.6 22.4 26L33.2 39H17L9.6 30.4C7.8 28.3 7 26.3 7 24V21.5C7 15 14 4 21.5 4Z"/>
+            <path fill="url(#s-base)" d="M26.5 24.5H46C53 24.5 60 30.5 60 38.5V42C60 47.5 50 60 41 60H2.6L10.2 49.2C11 47.8 12.2 47 14 47H44C46.5 47 48 45.5 48 43V41C48 38.5 46.8 37 44.5 37H37.8Z"/>
+          </svg>
+          <b>SIMAP</b>
+        </button>
+        <button class="s-botao" type="button" role="tab" id="aba-sifab" aria-controls="ficha-sifab" aria-selected="false" style="--cor:#F25555">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <defs>
+              <linearGradient id="s-sifab" x1="9" y1="7" x2="50" y2="36" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#F25555"/><stop offset="1" stop-color="#8A1322"/></linearGradient>
+            </defs>
+            <path fill="url(#s-sifab)" d="M21.5 4H61L52.5 17H25.5C22.5 17 20.8 18.8 20.8 21.5C20.8 23.3 21.3 24.6 22.4 26L33.2 39H17L9.6 30.4C7.8 28.3 7 26.3 7 24V21.5C7 15 14 4 21.5 4Z"/>
+            <path fill="url(#s-base)" d="M26.5 24.5H46C53 24.5 60 30.5 60 38.5V42C60 47.5 50 60 41 60H2.6L10.2 49.2C11 47.8 12.2 47 14 47H44C46.5 47 48 45.5 48 43V41C48 38.5 46.8 37 44.5 37H37.8Z"/>
+          </svg>
+          <b>SIFAB</b>
+        </button>
       </div>
 
       <div class="ficha" id="ficha-sici" role="tabpanel" aria-labelledby="aba-sici">
@@ -230,6 +250,62 @@
             <dd>Matriz de riscos e registro das evidências de cada verificação.</dd>
             <dt>Governança</dt>
             <dd>Conselhos, comitê de investimentos, ouvidoria e numeração de documentos.</dd>
+          </dl>
+        </div>
+        <p class="nota">Para contratar ou agendar uma apresentação, escreva para <a href="mailto:sist@sistsolucoes.com.br">sist@sistsolucoes.com.br</a>.</p>
+      </div>
+
+      <div class="ficha" id="ficha-simap" role="tabpanel" aria-labelledby="aba-simap" hidden>
+        <div class="ficha-topo">
+          <div>
+            <h3 style="font-size:1.35rem;margin-bottom:6px">SIMAP — Sistema Integrado de Monitoramento das Ações do Pró-Gestão</h3>
+            <p>Sistema online para o instituto conquistar e manter a certificação no Pró-Gestão RPPS. Mostra em que nível o instituto está, planeja as ações que faltam e acompanha a implementação até a auditoria de certificação.</p>
+          </div>
+        </div>
+        <div class="ficha-colunas">
+          <dl>
+            <dt>Diagnóstico e níveis</dt>
+            <dd>Diagnóstico preliminar, avaliação de cada ação do programa e simulador dos níveis de certificação.</dd>
+            <dt>Plano de ação</dt>
+            <dd>Plano e implementação das ações, com responsáveis e prazos.</dd>
+            <dt>Certificação</dt>
+            <dd>Painel da certificação e preparação para a auditoria da entidade certificadora.</dd>
+          </dl>
+          <dl>
+            <dt>Processos e governança</dt>
+            <dd>Mapeamento de processos e manuais, planejamento e governança do instituto.</dd>
+            <dt>Obrigações e alertas</dt>
+            <dd>Calendário das obrigações periódicas e central de alertas de prazos.</dd>
+            <dt>Painéis e relatórios</dt>
+            <dd>Painel executivo, painel previdenciário e os relatórios e documentos do programa.</dd>
+          </dl>
+        </div>
+        <p class="nota">Para contratar ou agendar uma apresentação, escreva para <a href="mailto:sist@sistsolucoes.com.br">sist@sistsolucoes.com.br</a>.</p>
+      </div>
+
+      <div class="ficha" id="ficha-sifab" role="tabpanel" aria-labelledby="aba-sifab" hidden>
+        <div class="ficha-topo">
+          <div>
+            <h3 style="font-size:1.35rem;margin-bottom:6px">SIFAB — Sistema Integrado de Folha e Administração de Benefícios</h3>
+            <p>Sistema online para a gestão previdenciária do RPPS: do cadastro do segurado à concessão do benefício e à folha de aposentados e pensionistas, com eSocial, COMPREV e prova de vida.</p>
+          </div>
+        </div>
+        <div class="ficha-colunas">
+          <dl>
+            <dt>Cadastro e protocolo</dt>
+            <dd>Cadastro único de segurados e dependentes, vínculos, órgãos e cargos, importação da base e protocolo de processos.</dd>
+            <dt>Gestão previdenciária</dt>
+            <dd>Histórico contributivo, tempo de contribuição, regras e simulação de aposentadoria, CTC e averbações.</dd>
+            <dt>Concessão de benefícios</dt>
+            <dd>Aposentadoria, pensão, revisão, suspensão e cessação, com modelos de portaria e checklist de documentos.</dd>
+          </dl>
+          <dl>
+            <dt>Folha de benefícios</dt>
+            <dd>Cálculo e conferência da folha mensal, consignações, pensão alimentícia, 13º, arquivo bancário, contracheques e informe de rendimentos.</dd>
+            <dt>eSocial e COMPREV</dt>
+            <dd>Eventos S-2400, S-2410 e S-1207 com retornos e pendências; processos e fluxo da compensação previdenciária.</dd>
+            <dt>Segurados e controle</dt>
+            <dd>Recadastramento, prova de vida, Portal do Segurado, arrecadação, base para a avaliação atuarial e trilha de auditoria.</dd>
           </dl>
         </div>
         <p class="nota">Para contratar ou agendar uma apresentação, escreva para <a href="mailto:sist@sistsolucoes.com.br">sist@sistsolucoes.com.br</a>.</p>
@@ -284,18 +360,31 @@
 <script>
   document.getElementById('ano').textContent = new Date().getFullYear();
 
-  // Sistemas: o S escolhido mostra a ficha do sistema.
+  // Sistemas: o S escolhido mostra a ficha do sistema. O endereço com #sici,
+  // #simap ou #sifab (o cadeado do Painel SIST) já abre na ficha dele.
   (function () {
     var abas = document.querySelectorAll('.s-botao[role="tab"]');
+    function escolher(aba) {
+      abas.forEach(function (outra) {
+        var sel = outra === aba;
+        outra.setAttribute('aria-selected', sel);
+        document.getElementById(outra.getAttribute('aria-controls')).hidden = !sel;
+      });
+    }
     abas.forEach(function (aba) {
       aba.addEventListener('click', function () {
-        abas.forEach(function (outra) {
-          var sel = outra === aba;
-          outra.setAttribute('aria-selected', sel);
-          document.getElementById(outra.getAttribute('aria-controls')).hidden = !sel;
-        });
+        escolher(aba);
+        history.replaceState(null, '', '#' + aba.id.replace('aba-', ''));
       });
     });
+    function pelo_endereco() {
+      var aba = document.getElementById('aba-' + location.hash.slice(1).toLowerCase());
+      if (!aba || aba.getAttribute('role') !== 'tab') return;
+      escolher(aba);
+      document.getElementById('sistemas').scrollIntoView();
+    }
+    window.addEventListener('hashchange', pelo_endereco);
+    pelo_endereco();
   })();
 
   // Endereço do login: ?entrar=<url> troca o botão (para testar antes de o domínio existir).
